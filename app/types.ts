@@ -159,21 +159,21 @@ function displayPointOfInterest(point: Point & Named): void {
   console.log(`${point.name} is at ${point.x},${point.y}`);
 }
 
-type HyperionResponse<T> = {
+type ApiResponse<T> = {
   success: boolean;
   code: number;
   payload: T | null;
 };
 
-type HyperionBooking = {
+type ApiBooking = {
   id: number;
   pbn: string;
 };
 
-async function fetchFromHyperion<T>(
+async function fetchFromApi<T>(
   path: string,
   page: number
-): Promise<HyperionResponse<T>> {
+): Promise<ApiResponse<T>> {
   return {
     success: true,
     code: 200,
@@ -181,7 +181,7 @@ async function fetchFromHyperion<T>(
   };
 }
 
-fetchFromHyperion<HyperionBooking[]>("bookings/1234", 1).then((response) => {
+fetchFromApi<ApiBooking[]>("bookings/1234", 1).then((response) => {
   response.payload?.forEach((booking) => {
     console.log(`Recieved booking with PBN ${booking.pbn}`);
   });
