@@ -11,10 +11,9 @@
                 "firsttris.vscode-jest-runner",
                 "esbenp.prettier-vscode",
                 "eamodio.gitlens",
-                "ms-vscode.vscode-typescript-tslint-plugin",
                 "ms-vsliveshare.vsliveshare",
                 "rtbenfield.vscode-jest-test-adapter",
-                "dbaeumer.vscode-eslint",
+                "dbaeumer.vscode-eslint"
             ]
         }
     },

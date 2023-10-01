@@ -1,19 +1,17 @@
 {
-	"compilerOptions": {
-		"lib": [
-			"es5",
-			"es6"
-		],
-		"target": "es5",
-		"module": "commonjs",
-		"moduleResolution": "node",
-        "rootDir": "./app",
-		"outDir": "./dist",
-		"emitDecoratorMetadata": true,
-		"experimentalDecorators": true,
-		"sourceMap": true,
-		"strict": true,
-		"noImplicitAny": true,
-		"downlevelIteration": true
-	}
+  "compilerOptions": {
+    "lib": ["ES2016", "DOM"],
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "rootDir": "./app",
+    "outDir": "./dist",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "strict": true,
+    "noImplicitAny": true,
+    "downlevelIteration": true
+  },
+  "exclude": ["./tests/**/*", "./jest.config.ts"]
 }
