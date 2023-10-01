@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  devcontainer:
+    build: .
+    container_name: workshopservice-dev-container
+    hostname: workshopservice-dev.local
+    working_dir: /src
+    volumes:
+       - ..:/src
+    command: sleep infinity

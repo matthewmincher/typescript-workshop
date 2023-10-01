@@ -1,0 +1,23 @@
+{
+	"name": "Sykes Workshop Service",
+	"dockerComposeFile": [
+		"docker-compose.yml"
+	],
+	"service": "devcontainer",
+	"workspaceFolder": "/src",
+	"customizations": {
+        "vscode": {
+            "extensions": [
+                "firsttris.vscode-jest-runner",
+                "esbenp.prettier-vscode",
+                "eamodio.gitlens",
+                "ms-vscode.vscode-typescript-tslint-plugin",
+                "ms-vsliveshare.vsliveshare",
+                "rtbenfield.vscode-jest-test-adapter",
+                "dbaeumer.vscode-eslint",
+            ]
+        }
+    },
+	"shutdownAction": "stopCompose",
+	"remoteUser": "node"
+}
