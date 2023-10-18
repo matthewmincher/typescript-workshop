@@ -1,38 +1,21 @@
-import pets from "../data/pets";
+import PetRepository from "../repositories/pet-repository";
 import { Pet } from "../types/Pet";
 
-class PetService {
-  async findAll(): Promise<Pet[]> {
-    return Object.values(pets);
+const petRepository = new PetRepository();
+export default class PetService {
+  async all(): Promise<Pet[]> {
+    return petRepository.findAll();
   }
 
   async find(id: number): Promise<Pet | undefined> {
-    return pets.find((pet) => pet.id === id);
+    return petRepository.find(id);
   }
 
   async create(pet: Omit<Pet, "id">): Promise<Pet> {
-    const id = Math.max(...pets.map((pet) => pet.id)) + 1;
-    const newPet = {
-      ...pet,
-      id,
-    };
-
-    pets.push(newPet);
-
-    return newPet;
+    return petRepository.create(pet);
   }
 
   async delete(id: number): Promise<boolean> {
-    const index = pets.findIndex((pet) => pet.id === id);
-
-    if (index === -1) {
-      return false;
-    }
-
-    pets.splice(index, 1);
-
-    return true;
+    return petRepository.delete(id);
   }
 }
-
-export default PetService;

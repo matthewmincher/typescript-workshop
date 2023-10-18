@@ -13,7 +13,7 @@ const petsService = new PetService();
  * curl -w "\n" 'http://localhost:7000/api/pets'
  */
 router.get("/", async (req: Request, res: Response) => {
-  const allPets = await petsService.findAll();
+  const allPets = await petsService.all();
 
   return res.status(HttpStatus.OK).send(allPets);
 });

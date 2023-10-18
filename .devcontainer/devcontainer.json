@@ -1,22 +1,26 @@
 {
-	"name": "Sykes Workshop Service",
-	"dockerComposeFile": [
-		"docker-compose.yml"
-	],
-	"service": "devcontainer",
-	"workspaceFolder": "/src",
-	"customizations": {
-        "vscode": {
-            "extensions": [
-                "firsttris.vscode-jest-runner",
-                "esbenp.prettier-vscode",
-                "eamodio.gitlens",
-                "ms-vsliveshare.vsliveshare",
-                "rtbenfield.vscode-jest-test-adapter",
-                "dbaeumer.vscode-eslint"
-            ]
+  "name": "Sykes Workshop Service",
+  "dockerComposeFile": ["docker-compose.yml"],
+  "service": "devcontainer",
+  "workspaceFolder": "/src",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "firsttris.vscode-jest-runner",
+        "esbenp.prettier-vscode",
+        "eamodio.gitlens",
+        "ms-vsliveshare.vsliveshare",
+        "rtbenfield.vscode-jest-test-adapter",
+        "dbaeumer.vscode-eslint"
+      ],
+      "settings": {
+        "[typescript]": { "editor.defaultFormatter": "esbenp.prettier-vscode" },
+        "[typescriptreact]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
         }
-    },
-	"shutdownAction": "stopCompose",
-	"remoteUser": "node"
+      }
+    }
+  },
+  "shutdownAction": "stopCompose",
+  "remoteUser": "node"
 }
