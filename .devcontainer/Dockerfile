@@ -8,3 +8,5 @@ RUN apt-get update
 RUN apt-get install -y \
     lsb-release \
     curl
+
+RUN echo "alias ll='ls -alF'" >> /etc/bash.bashrc
