@@ -1,6 +1,7 @@
 import {
   Card,
   Chip,
+  Container,
   Table,
   TableBody,
   TableCell,
@@ -8,6 +9,8 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import { isWeighablePet } from "../api/pets-api";
+import PetWeightGraph from "./PetWeightGraph";
 
 function PetDetails(props: { pet: any }) {
   return (
@@ -50,6 +53,16 @@ function PetDetails(props: { pet: any }) {
           </TableRow>
         </TableBody>
       </Table>
+
+      {isWeighablePet(props.pet) && (
+        <Container sx={{ mt: 4 }}>
+          <PetWeightGraph
+            minimumHealthyWeight={props.pet.minimumWeight}
+            maximumHealthyWeight={props.pet.maximumWeight}
+            weighIns={props.pet.weighIns}
+          />
+        </Container>
+      )}
     </Card>
   );
 }
