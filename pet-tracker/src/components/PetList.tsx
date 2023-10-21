@@ -14,9 +14,9 @@ import AddPetForm from "./AddPetForm";
 import { Pet } from "../api/types/Pet";
 
 function PetList(props: {
-  pets: any;
-  selectedPetId: any;
-  onSelectPet: (pet: any) => void;
+  pets: Pet[];
+  selectedPetId: number;
+  onSelectPet: (pet: Pet) => void;
   onUpdatePet: (pet: Pet) => void;
 }) {
   const [isAddingPet, setIsAddingPet] = useState(false);
@@ -41,7 +41,7 @@ function PetList(props: {
           </Stack>
         </ListSubheader>
 
-        {props.pets.map((pet: any) => (
+        {props.pets.map((pet) => (
           <ListItem
             key={pet.id}
             disableGutters
