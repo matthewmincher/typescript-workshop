@@ -8,9 +8,9 @@ import {
   TextField,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import PetsApi from "../api/pets-api";
-import { Pet } from "@backend/types/Pet";
+import PetsApi from "../client/pets-api";
 import { DatePicker } from "@mui/x-date-pickers";
+import { Pet } from "../api/types/Pet";
 
 type AddWeightReadingProps = {
   pet: Pet;

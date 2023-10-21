@@ -1,5 +1,5 @@
-import { Pet } from "@backend/types/Pet";
 import format from "date-fns/format";
+import { Pet } from "../api/types/Pet";
 
 export default class PetsApi {
   async getAllPets(): Promise<any[]> {

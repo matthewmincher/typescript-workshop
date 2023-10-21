@@ -1,15 +1,15 @@
 import "./App.css";
-import PetsApi from "./api/pets-api";
-import { Pet } from "@backend/types/Pet";
+import PetsApi from "./client/pets-api";
 import { CssBaseline, Grid, Typography } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import PetList from "./components/PetList";
 import Header from "./components/Header";
 import PetDetails from "./components/PetDetails";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import en from "date-fns/locale/en-GB";
+import { Pet } from "./api/types/Pet";
 
 const theme = createTheme({
   palette: {
