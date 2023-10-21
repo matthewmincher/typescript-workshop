@@ -22,6 +22,18 @@ export default class PetRepository {
     return newPet;
   }
 
+  async update(updatedPet: Pet): Promise<Pet> {
+    let index = pets.findIndex((pet) => pet.id === updatedPet.id);
+
+    if (index === -1) {
+      throw Error(`Pet not found for ID ${updatedPet.id}`);
+    }
+
+    pets[index] = updatedPet;
+
+    return updatedPet;
+  }
+
   async delete(id: number): Promise<boolean> {
     const index = pets.findIndex((pet) => pet.id === id);
 

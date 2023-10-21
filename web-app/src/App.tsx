@@ -12,30 +12,32 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import en from "date-fns/locale/en-GB";
 
 const theme = createTheme({
-  palette: {},
+  palette: {
+    primary: {
+      main: "#22313f",
+    },
+    secondary: {
+      main: "#ffae04",
+    },
+    contrastThreshold: 3,
+    tonalOffset: 0.2,
+  },
 });
 
 const petsApi = new PetsApi();
-const REFRESH_LIST_INTERVAL_MS = 5000;
 
 function App() {
   const [pets, setPets] = useState<Pet[]>([]);
   const [selectedPetId, setSelectedPetId] = useState<number>(0);
-  const refreshTimeoutRef = useRef<NodeJS.Timeout>();
-  const refreshPetsList = useCallback(() => {
+  const [isLoading, setIsLoading] = useState(false);
+
+  const triggerUpdateAllPetData = () => {
+    setIsLoading(true);
     petsApi
       .getAllPets()
-      .then((pets) => {
-        setPets(pets);
-      })
-      .finally(() => {
-        refreshTimeoutRef.current = setTimeout(
-          refreshPetsList,
-          REFRESH_LIST_INTERVAL_MS
-        );
-      });
-  }, []);
-
+      .then(setPets)
+      .finally(() => setIsLoading(false));
+  };
   const onPetUpdated = useCallback(
     (pet: Pet) => {
       const petIndex = pets.findIndex((p) => p.id === pet.id);
@@ -48,13 +50,7 @@ function App() {
     [pets]
   );
 
-  useEffect(() => {
-    refreshPetsList();
-
-    return () => {
-      clearInterval(refreshTimeoutRef.current);
-    };
-  }, [refreshPetsList]);
+  useEffect(triggerUpdateAllPetData, []);
 
   const selectedPet = pets.find((pet) => pet.id === selectedPetId);
 
@@ -63,7 +59,10 @@ function App() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="App">
-          <Header />
+          <Header
+            triggerUpdateAllPetData={triggerUpdateAllPetData}
+            appIsLoading={isLoading}
+          />
 
           <Grid
             container
