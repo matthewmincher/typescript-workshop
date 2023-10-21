@@ -16,5 +16,5 @@ export interface Pet {
   species: Species;
   id: number;
 
-  weight: Weight;
+  weight?: Weight;
 }

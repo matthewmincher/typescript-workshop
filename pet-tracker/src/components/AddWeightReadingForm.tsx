@@ -12,7 +12,7 @@ import PetsApi from "../client/pets-api";
 import { DatePicker } from "@mui/x-date-pickers";
 import { Pet } from "../api/types/Pet";
 
-type AddWeightReadingProps = {
+type AddWeightReadingFormProps = {
   pet: Pet;
   onPetUpdated: (pet: Pet) => void;
   onComplete: () => void;
@@ -56,10 +56,10 @@ const validate = (newInputs: Inputs): Errors => {
 
 const petsApi = new PetsApi();
 
-export default function AddWeightReading(props: AddWeightReadingProps) {
+export default function AddWeightReadingForm(props: AddWeightReadingFormProps) {
   const initialState: Inputs = {
-    minimumWeight: props.pet.weight.minimumWeight.toString() || "",
-    maximumWeight: props.pet.weight.maximumWeight.toString() || "",
+    minimumWeight: props.pet.weight?.minimumWeight.toString() || "",
+    maximumWeight: props.pet.weight?.maximumWeight.toString() || "",
     newWeight: "",
   };
 
@@ -106,7 +106,7 @@ export default function AddWeightReading(props: AddWeightReadingProps) {
           <TextField
             margin="dense"
             id="minimumWeight"
-            label="Minimum healthy weight"
+            label="Minimum healthy weight (kg)"
             inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
             fullWidth
             variant="standard"
@@ -122,7 +122,7 @@ export default function AddWeightReading(props: AddWeightReadingProps) {
           <TextField
             margin="dense"
             id="maximumWeight"
-            label="Maximum healthy weight"
+            label="Maximum healthy weight (kg)"
             inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
             fullWidth
             variant="standard"
@@ -147,7 +147,7 @@ export default function AddWeightReading(props: AddWeightReadingProps) {
             autoFocus
             margin="dense"
             id="weight"
-            label="Weight"
+            label="Weight (kg)"
             inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
             fullWidth
             variant="standard"

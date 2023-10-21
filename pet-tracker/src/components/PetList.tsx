@@ -11,11 +11,13 @@ import {
 import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 import { useState } from "react";
 import AddPetForm from "./AddPetForm";
+import { Pet } from "../api/types/Pet";
 
 function PetList(props: {
   pets: any;
   selectedPetId: any;
   onSelectPet: (pet: any) => void;
+  onUpdatePet: (pet: Pet) => void;
 }) {
   const [isAddingPet, setIsAddingPet] = useState(false);
 
@@ -53,7 +55,12 @@ function PetList(props: {
         ))}
       </List>
 
-      {isAddingPet && <AddPetForm onComplete={() => setIsAddingPet(false)} />}
+      {isAddingPet && (
+        <AddPetForm
+          onPetUpdated={props.onUpdatePet}
+          onComplete={() => setIsAddingPet(false)}
+        />
+      )}
     </Card>
   );
 }

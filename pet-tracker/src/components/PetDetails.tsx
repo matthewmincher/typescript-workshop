@@ -12,12 +12,13 @@ import {
 } from "@mui/material";
 import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 import PetWeightGraph from "./PetWeightGraph";
-import AddWeightReading from "./AddWeightReading";
+import AddWeightReadingForm from "./AddWeightReadingForm";
 import { useState } from "react";
 import { Pet } from "../api/types/Pet";
 
 function PetDetails(props: { pet: any; onPetUpdated: (pet: Pet) => void }) {
-  const latestWeightReading = (props.pet.weight.weighIns ?? []).at(-1);
+  const latestWeightReading = props.pet.weight?.weighIns.at(-1);
+
   const [isAddingWeightRecord, setIsAddingWeightRecord] = useState(false);
 
   return (
@@ -50,7 +51,9 @@ function PetDetails(props: { pet: any; onPetUpdated: (pet: Pet) => void }) {
             <TableCell sx={{ width: "10em" }} align="right" variant="head">
               Species:
             </TableCell>
-            <TableCell colSpan={2}>{props.pet.species}</TableCell>
+            <TableCell colSpan={2} sx={{ textTransform: "capitalize" }}>
+              {props.pet.species.toLowerCase()}
+            </TableCell>
           </TableRow>
           <TableRow>
             <TableCell variant="head" align="right">
@@ -70,7 +73,7 @@ function PetDetails(props: { pet: any; onPetUpdated: (pet: Pet) => void }) {
                 <AddCircleRoundedIcon fontSize="inherit" />
               </IconButton>
               {isAddingWeightRecord && (
-                <AddWeightReading
+                <AddWeightReadingForm
                   pet={props.pet}
                   onPetUpdated={props.onPetUpdated}
                   onComplete={() => setIsAddingWeightRecord(false)}

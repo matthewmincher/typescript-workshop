@@ -4,7 +4,7 @@ import { CssBaseline, Grid, Typography } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import PetList from "./components/PetList";
-import Header from "./components/Header";
+import Header from "./layout/Header";
 import PetDetails from "./components/PetDetails";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
@@ -31,17 +31,18 @@ function App() {
   const [selectedPetId, setSelectedPetId] = useState<number>(0);
   const [isLoading, setIsLoading] = useState(false);
 
-  const triggerUpdateAllPetData = () => {
+  const triggerUpdateAllPetData = useCallback(() => {
     setIsLoading(true);
     petsApi
       .getAllPets()
       .then(setPets)
       .finally(() => setIsLoading(false));
-  };
+  }, []);
   const onPetUpdated = useCallback(
     (pet: Pet) => {
       const petIndex = pets.findIndex((p) => p.id === pet.id);
       if (petIndex === -1) {
+        setPets([...pets, pet]);
         return;
       }
 
@@ -50,7 +51,7 @@ function App() {
     [pets]
   );
 
-  useEffect(triggerUpdateAllPetData, []);
+  useEffect(triggerUpdateAllPetData, [triggerUpdateAllPetData]);
 
   const selectedPet = pets.find((pet) => pet.id === selectedPetId);
 
@@ -79,6 +80,7 @@ function App() {
                 pets={pets}
                 selectedPetId={selectedPetId}
                 onSelectPet={(pet) => setSelectedPetId(pet.id)}
+                onUpdatePet={onPetUpdated}
               />
             </Grid>
             <Grid item xs={8}>

@@ -39,7 +39,7 @@ export default class PetService {
         minimumWeight,
         maximumWeight,
         weighIns: [
-          ...pet.weight.weighIns,
+          ...(pet.weight?.weighIns ?? []),
           {
             weight: weight,
             date: getUnixTime(date),
@@ -48,7 +48,7 @@ export default class PetService {
       },
     };
 
-    updatedPet.weight.weighIns.sort((a, b) => {
+    updatedPet.weight!.weighIns.sort((a, b) => {
       return a.date - b.date;
     });
 

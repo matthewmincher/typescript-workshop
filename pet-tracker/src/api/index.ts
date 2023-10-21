@@ -48,7 +48,6 @@ router.get("/:id", async (req: Request, res: Response) => {
  * curl -w "\n"  -XPOST -H "Content-type: application/json" -d '{"name": "Fred", "species": "Tortoise", "weight": {"minimumWeight": 1, "maximumWeight": 2, "weighIns": []}}' 'http://localhost:7000/api/pets'
  */
 router.post("/", async (req: Request, res: Response) => {
-  console.log("create");
   try {
     const pet = await petsService.create(req.body);
 

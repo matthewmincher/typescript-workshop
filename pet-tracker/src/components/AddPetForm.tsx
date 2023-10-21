@@ -6,12 +6,19 @@ import {
   DialogContentText,
   DialogTitle,
   TextField,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
 } from "@mui/material";
+
 import { useEffect, useState } from "react";
 import PetsApi from "../client/pets-api";
-import { DatePicker } from "@mui/x-date-pickers";
+import { Species } from "../api/types/enums";
+import { Pet } from "../api/types/Pet";
 
 type AddPetProps = {
+  onPetUpdated: (pet: Pet) => void;
   onComplete: () => void;
 };
 type Inputs = {
@@ -23,6 +30,10 @@ type Errors = Partial<Record<keyof Inputs, string>>;
 const validate = (newInputs: Inputs): Errors => {
   const newErrors: Errors = {};
 
+  if (!newInputs.name.trim()) {
+    newErrors.name = "Name must be filled in";
+  }
+
   return newErrors;
 };
 
@@ -31,9 +42,13 @@ const petsApi = new PetsApi();
 export default function AddPetForm(props: AddPetProps) {
   const [input, setInput] = useState<Inputs>({
     name: "",
-    species: "OTHER",
+    species: Species.Other,
   });
   const [errors, setErrors] = useState<Errors>({});
+
+  useEffect(() => {
+    setErrors(validate(input));
+  }, [input]);
 
   const handleClose = () => {
     props.onComplete();
@@ -43,6 +58,11 @@ export default function AddPetForm(props: AddPetProps) {
     if (Object.keys(errors).length !== 0) {
       return;
     }
+
+    petsApi
+      .addPet(input.name.trim(), input.species)
+      .then(props.onPetUpdated)
+      .then(handleClose);
   };
 
   return (
@@ -51,25 +71,52 @@ export default function AddPetForm(props: AddPetProps) {
         <DialogTitle>Add Pet</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Add your pets details below to start managing their life
+            Add your pet's details below to start managing their life 🐶
           </DialogContentText>
 
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Name"
-            fullWidth
-            variant="standard"
-            error={errors.name !== undefined}
-            onChange={(e) => {
-              const newInput = { ...input, name: e.target.value };
+          <FormControl fullWidth>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="name"
+              label="Name"
+              variant="outlined"
+              error={errors.name !== undefined}
+              onChange={(e) => {
+                const newInput = { ...input, name: e.target.value };
 
-              setInput(newInput);
-              setErrors(validate(newInput));
-            }}
-            value={input.name}
-          />
+                setInput(newInput);
+                setErrors(validate(newInput));
+              }}
+              value={input.name}
+            />
+          </FormControl>
+
+          <FormControl fullWidth sx={{ mt: 2 }}>
+            <InputLabel id="species-select-label">Species</InputLabel>
+            <Select
+              labelId="species-select-label"
+              label="Species"
+              variant="outlined"
+              value={input.species}
+              sx={{ textTransform: "capitalize" }}
+              onChange={(e) => {
+                const newInput = { ...input, species: e.target.value };
+
+                setInput(newInput);
+                setErrors(validate(newInput));
+              }}
+            >
+              {Object.keys(Species).map((key) => (
+                <MenuItem
+                  sx={{ textTransform: "capitalize" }}
+                  value={Species[key as keyof typeof Species]}
+                >
+                  {key.toLowerCase()}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>

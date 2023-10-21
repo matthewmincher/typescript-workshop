@@ -8,6 +8,21 @@ export default class PetsApi {
     );
   }
 
+  async addPet(name: string, species: string): Promise<Pet> {
+    const postData = {
+      name,
+      species,
+    };
+
+    return fetch(`http://localhost:7000/api/pets`, {
+      method: "POST",
+      body: JSON.stringify(postData),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((response) => response.json());
+  }
+
   async addWeightForPet(
     id: number,
     minimumWeight: number,
