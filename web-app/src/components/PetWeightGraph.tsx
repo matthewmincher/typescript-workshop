@@ -13,8 +13,8 @@ import { format, fromUnixTime } from "date-fns";
 import { Container } from "@mui/material";
 
 type PetWeightGraphProps = {
-  minimumHealthyWeight: number;
-  maximumHealthyWeight: number;
+  minimumWeight: number;
+  maximumWeight: number;
   weighIns: {
     date: number;
     weight: number;
@@ -51,8 +51,8 @@ function PetWeightGraph(props: PetWeightGraphProps) {
             }}
           />
           <ReferenceArea
-            y1={props.minimumHealthyWeight}
-            y2={props.maximumHealthyWeight}
+            y1={props.minimumWeight}
+            y2={props.maximumWeight}
             fill="green"
             fillOpacity={0.3}
             stroke="darkgreen"

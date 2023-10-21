@@ -1,16 +1,12 @@
-import { Pets } from "@mui/icons-material";
+import { Pet } from "@backend/types/Pet";
 import {
   Card,
-  CardContent,
-  Divider,
   List,
   ListItem,
   ListItemButton,
   ListItemText,
   ListSubheader,
-  Typography,
 } from "@mui/material";
-import { ReactElement, ReactNode } from "react";
 
 function PetList(props: {
   pets: any;

@@ -1,12 +1,15 @@
 import "./App.css";
 import PetsApi from "./api/pets-api";
 import { Pet } from "@backend/types/Pet";
-import { Card, CssBaseline, Grid, Typography } from "@mui/material";
+import { CssBaseline, Grid, Typography } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material";
 import { useCallback, useEffect, useRef, useState } from "react";
 import PetList from "./components/PetList";
 import Header from "./components/Header";
 import PetDetails from "./components/PetDetails";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import en from "date-fns/locale/en-GB";
 
 const theme = createTheme({
   palette: {},
@@ -33,6 +36,18 @@ function App() {
       });
   }, []);
 
+  const onPetUpdated = useCallback(
+    (pet: Pet) => {
+      const petIndex = pets.findIndex((p) => p.id === pet.id);
+      if (petIndex === -1) {
+        return;
+      }
+
+      setPets([...pets.slice(0, petIndex), pet, ...pets.slice(petIndex + 1)]);
+    },
+    [pets]
+  );
+
   useEffect(() => {
     refreshPetsList();
 
@@ -44,38 +59,40 @@ function App() {
   const selectedPet = pets.find((pet) => pet.id === selectedPetId);
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <div className="App">
-        <Header />
+    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={en}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <div className="App">
+          <Header />
 
-        <Grid
-          container
-          columnSpacing={"2em"}
-          sx={{
-            maxWidth: "90%",
-            mt: "2em",
-            ml: "auto",
-            mr: "auto",
-          }}
-        >
-          <Grid item xs={4}>
-            <PetList
-              pets={pets}
-              selectedPetId={selectedPetId}
-              onSelectPet={(pet) => setSelectedPetId(pet.id)}
-            />
+          <Grid
+            container
+            columnSpacing={"2em"}
+            sx={{
+              maxWidth: "90%",
+              mt: "2em",
+              ml: "auto",
+              mr: "auto",
+            }}
+          >
+            <Grid item xs={4}>
+              <PetList
+                pets={pets}
+                selectedPetId={selectedPetId}
+                onSelectPet={(pet) => setSelectedPetId(pet.id)}
+              />
+            </Grid>
+            <Grid item xs={8}>
+              {selectedPet ? (
+                <PetDetails pet={selectedPet} onPetUpdated={onPetUpdated} />
+              ) : (
+                <Typography>Select a pet...</Typography>
+              )}
+            </Grid>
           </Grid>
-          <Grid item xs={8}>
-            {selectedPet ? (
-              <PetDetails pet={selectedPet} />
-            ) : (
-              <Typography>Select a pet...</Typography>
-            )}
-          </Grid>
-        </Grid>
-      </div>
-    </ThemeProvider>
+        </div>
+      </ThemeProvider>
+    </LocalizationProvider>
   );
 }
 

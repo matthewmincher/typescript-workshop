@@ -2,6 +2,7 @@ import {
   Card,
   Chip,
   Container,
+  IconButton,
   Table,
   TableBody,
   TableCell,
@@ -9,10 +10,16 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { isWeighablePet } from "../api/pets-api";
+import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 import PetWeightGraph from "./PetWeightGraph";
+import AddWeightReading from "./AddWeightReading";
+import { Pet } from "@backend/types/Pet";
+import { useState } from "react";
 
-function PetDetails(props: { pet: any }) {
+function PetDetails(props: { pet: any; onPetUpdated: (pet: Pet) => void }) {
+  const latestWeightReading = (props.pet.weight.weighIns ?? []).at(-1);
+  const [isAddingWeightRecord, setIsAddingWeightRecord] = useState(false);
+
   return (
     <Card
       sx={{
@@ -33,7 +40,7 @@ function PetDetails(props: { pet: any }) {
       <Table sx={{ minWidth: 650 }}>
         <TableHead>
           <TableRow>
-            <TableCell colSpan={2} align="center">
+            <TableCell colSpan={3} align="center">
               Vitals
             </TableCell>
           </TableRow>
@@ -43,23 +50,43 @@ function PetDetails(props: { pet: any }) {
             <TableCell sx={{ width: "10em" }} align="right" variant="head">
               Species:
             </TableCell>
-            <TableCell>{props.pet.species}</TableCell>
+            <TableCell colSpan={2}>{props.pet.species}</TableCell>
           </TableRow>
           <TableRow>
             <TableCell variant="head" align="right">
               Weight:
             </TableCell>
-            <TableCell>{props.pet.weight}kg</TableCell>
+            <TableCell>
+              {latestWeightReading
+                ? `${latestWeightReading.weight}kg`
+                : `Unknown`}
+            </TableCell>
+            <TableCell sx={{ width: "10em" }} align="right">
+              <IconButton
+                aria-label="Add"
+                size="small"
+                onClick={() => setIsAddingWeightRecord(true)}
+              >
+                <AddCircleRoundedIcon fontSize="inherit" />
+              </IconButton>
+              {isAddingWeightRecord && (
+                <AddWeightReading
+                  pet={props.pet}
+                  onPetUpdated={props.onPetUpdated}
+                  onComplete={() => setIsAddingWeightRecord(false)}
+                />
+              )}
+            </TableCell>
           </TableRow>
         </TableBody>
       </Table>
 
-      {isWeighablePet(props.pet) && (
+      {latestWeightReading && (
         <Container sx={{ mt: 4 }}>
           <PetWeightGraph
-            minimumHealthyWeight={props.pet.minimumWeight}
-            maximumHealthyWeight={props.pet.maximumWeight}
-            weighIns={props.pet.weighIns}
+            minimumWeight={props.pet.weight.minimumWeight}
+            maximumWeight={props.pet.weight.maximumWeight}
+            weighIns={props.pet.weight.weighIns}
           />
         </Container>
       )}
