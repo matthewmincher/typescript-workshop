@@ -4,7 +4,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc --project tsconfig.build.json",
     "dev": "ts-node-dev --respawn --pretty --transpile-only src/pet-mass-tracker-api/index.ts",
     "test": "jest"
   },
