@@ -16,11 +16,10 @@ import AddWeightReadingForm from "./AddWeightReadingForm";
 import { useState } from "react";
 import { Pet } from "../api/types/Pet";
 
-function PetDetails(props: { pet: any; onPetUpdated: (pet: Pet) => void }) {
+function PetDetails(props: { pet: Pet; onPetUpdated: (pet: Pet) => void }) {
   const latestWeightReading = props.pet.weight?.weighIns.at(-1);
 
   const [isAddingWeightRecord, setIsAddingWeightRecord] = useState(false);
-
   return (
     <Card
       sx={{
@@ -87,9 +86,9 @@ function PetDetails(props: { pet: any; onPetUpdated: (pet: Pet) => void }) {
       {latestWeightReading && (
         <Container sx={{ mt: 4 }}>
           <PetWeightGraph
-            minimumWeight={props.pet.weight.minimumWeight}
-            maximumWeight={props.pet.weight.maximumWeight}
-            weighIns={props.pet.weight.weighIns}
+            minimumWeight={props.pet.weight!.minimumWeight}
+            maximumWeight={props.pet.weight!.maximumWeight}
+            weighIns={props.pet.weight!.weighIns}
           />
         </Container>
       )}

@@ -12,7 +12,7 @@ export default class PetRepository {
 
   async create(pet: Omit<Pet, "id">): Promise<Pet> {
     const id = Math.max(...pets.map((pet) => pet.id)) + 1;
-    const newPet = {
+    const newPet: Pet = {
       ...pet,
       id,
     };

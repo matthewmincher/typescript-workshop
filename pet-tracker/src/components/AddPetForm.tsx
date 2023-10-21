@@ -109,6 +109,7 @@ export default function AddPetForm(props: AddPetProps) {
             >
               {Object.keys(Species).map((key) => (
                 <MenuItem
+                  key={key}
                   sx={{ textTransform: "capitalize" }}
                   value={Species[key as keyof typeof Species]}
                 >

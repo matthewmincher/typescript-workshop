@@ -1,6 +1,13 @@
 import "./App.css";
 import PetsApi from "./client/pets-api";
-import { CssBaseline, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  CssBaseline,
+  Divider,
+  Grid,
+  Typography,
+} from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import PetList from "./components/PetList";
@@ -10,6 +17,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import en from "date-fns/locale/en-GB";
 import { Pet } from "./api/types/Pet";
+import PetActions from "./components/PetActions";
 
 const theme = createTheme({
   palette: {
@@ -38,6 +46,7 @@ function App() {
       .then(setPets)
       .finally(() => setIsLoading(false));
   }, []);
+
   const onPetUpdated = useCallback(
     (pet: Pet) => {
       const petIndex = pets.findIndex((p) => p.id === pet.id);
@@ -51,6 +60,18 @@ function App() {
     [pets]
   );
 
+  const onPetRemoved = useCallback(
+    (id: number) => {
+      const petIndex = pets.findIndex((p) => p.id === id);
+      if (petIndex === -1) {
+        return;
+      }
+
+      setPets([...pets.slice(0, petIndex), ...pets.slice(petIndex + 1)]);
+    },
+    [pets]
+  );
+
   useEffect(triggerUpdateAllPetData, [triggerUpdateAllPetData]);
 
   const selectedPet = pets.find((pet) => pet.id === selectedPetId);
@@ -59,7 +80,7 @@ function App() {
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={en}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div className="App">
+        <Box className="App">
           <Header
             triggerUpdateAllPetData={triggerUpdateAllPetData}
             appIsLoading={isLoading}
@@ -85,13 +106,16 @@ function App() {
             </Grid>
             <Grid item xs={8}>
               {selectedPet ? (
-                <PetDetails pet={selectedPet} onPetUpdated={onPetUpdated} />
+                <div>
+                  <PetDetails pet={selectedPet} onPetUpdated={onPetUpdated} />
+                  <PetActions pet={selectedPet} onPetRemoved={onPetRemoved} />
+                </div>
               ) : (
                 <Typography>Select a pet...</Typography>
               )}
             </Grid>
           </Grid>
-        </div>
+        </Box>
       </ThemeProvider>
     </LocalizationProvider>
   );

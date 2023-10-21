@@ -45,4 +45,10 @@ export default class PetsApi {
       },
     }).then((response) => response.json());
   }
+
+  async removePet(id: number): Promise<boolean> {
+    return fetch(`http://localhost:7000/api/pets/${id}`, {
+      method: "DELETE",
+    }).then((response) => response.ok);
+  }
 }
