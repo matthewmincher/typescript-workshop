@@ -14,18 +14,3 @@ interface Animal {
 interface Social {
   friends: string[];
 }
-
-interface Bear extends Animal {
-  hasHoney: boolean;
-}
-
-interface Bear extends Social {
-  hibernationWeight: number;
-}
-
-const bear: Bear = {
-  name: "Winnie-the-Pooh",
-  hasHoney: false,
-  friends: ["Eeyore", "Tigger"],
-  hibernationWeight: 50,
-};
