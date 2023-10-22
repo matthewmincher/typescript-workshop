@@ -10,7 +10,7 @@ import {
 import { useEffect, useState } from "react";
 import PetsApi from "../client/pets-api";
 import { DatePicker } from "@mui/x-date-pickers";
-import { Pet } from "../api/types/Pet";
+import { Pet } from "../api/types/pets";
 
 type AddWeightReadingFormProps = {
   pet: Pet;

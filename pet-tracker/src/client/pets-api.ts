@@ -1,5 +1,5 @@
 import format from "date-fns/format";
-import { Pet } from "../api/types/Pet";
+import { Pet } from "../api/types/pets";
 
 export default class PetsApi {
   async getAllPets(): Promise<any[]> {
@@ -46,9 +46,9 @@ export default class PetsApi {
     }).then((response) => response.json());
   }
 
-  async removePet(id: number): Promise<boolean> {
+  async removePet(id: number): Promise<Response> {
     return fetch(`http://localhost:7000/api/pets/${id}`, {
       method: "DELETE",
-    }).then((response) => response.ok);
+    });
   }
 }

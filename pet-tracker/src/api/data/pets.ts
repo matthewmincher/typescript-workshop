@@ -1,5 +1,5 @@
 import { Species } from "../types/enums";
-import { Pet } from "../types/Pet";
+import { Pet } from "../types/pets";
 import { parse, getUnixTime } from "date-fns";
 
 const date = Date.now();

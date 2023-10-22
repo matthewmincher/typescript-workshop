@@ -1,5 +1,5 @@
 import pets from "../data/pets";
-import { Pet } from "../types/Pet";
+import { Pet } from "../types/pets";
 
 export default class PetRepository {
   async findAll(): Promise<Pet[]> {

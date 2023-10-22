@@ -1,8 +1,12 @@
 import { getUnixTime } from "date-fns";
 import PetRepository from "../repositories/pet-repository";
-import { Pet } from "../types/Pet";
+import { Pet } from "../types/pets";
+import VetRepository from "../repositories/vet-repository";
+import { Appointment } from "../types/vets";
 
 const petRepository = new PetRepository();
+const vetRepository = new VetRepository();
+
 export default class PetService {
   async all(): Promise<Pet[]> {
     return petRepository.findAll();
@@ -57,5 +61,13 @@ export default class PetService {
 
   async delete(id: number): Promise<boolean> {
     return petRepository.delete(id);
+  }
+
+  async getAppointmentsFor(id: number): Promise<Appointment[]> {
+    return vetRepository
+      .findAllAppointments()
+      .then((appointments) =>
+        appointments.filter((appointment) => appointment.petId === id)
+      );
   }
 }

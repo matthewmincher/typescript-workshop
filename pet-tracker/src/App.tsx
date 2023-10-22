@@ -16,7 +16,7 @@ import PetDetails from "./components/PetDetails";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import en from "date-fns/locale/en-GB";
-import { Pet } from "./api/types/Pet";
+import { Pet } from "./api/types/pets";
 import PetActions from "./components/PetActions";
 
 const theme = createTheme({

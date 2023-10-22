@@ -14,7 +14,7 @@ import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 import PetWeightGraph from "./PetWeightGraph";
 import AddWeightReadingForm from "./AddWeightReadingForm";
 import { useState } from "react";
-import { Pet } from "../api/types/Pet";
+import { Pet } from "../api/types/pets";
 
 function PetDetails(props: { pet: Pet; onPetUpdated: (pet: Pet) => void }) {
   const latestWeightReading = props.pet.weight?.weighIns.at(-1);

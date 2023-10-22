@@ -11,7 +11,7 @@ import {
 import AddCircleRoundedIcon from "@mui/icons-material/AddCircleRounded";
 import { useState } from "react";
 import AddPetForm from "./AddPetForm";
-import { Pet } from "../api/types/Pet";
+import { Pet } from "../api/types/pets";
 
 function PetList(props: {
   pets: Pet[];

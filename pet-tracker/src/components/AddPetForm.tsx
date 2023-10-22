@@ -15,7 +15,7 @@ import {
 import { useEffect, useState } from "react";
 import PetsApi from "../client/pets-api";
 import { Species } from "../api/types/enums";
-import { Pet } from "../api/types/Pet";
+import { Pet } from "../api/types/pets";
 
 type AddPetProps = {
   onPetUpdated: (pet: Pet) => void;
