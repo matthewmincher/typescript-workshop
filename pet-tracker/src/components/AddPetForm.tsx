@@ -125,7 +125,7 @@ export default function AddPetForm(props: AddPetProps) {
             onClick={handleSubmit}
             disabled={Object.keys(errors).length !== 0}
           >
-            Save
+            Add
           </Button>
         </DialogActions>
       </Dialog>

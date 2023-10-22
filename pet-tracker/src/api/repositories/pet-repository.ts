@@ -14,7 +14,7 @@ export default class PetRepository {
     const id = Math.max(...pets.map((pet) => pet.id)) + 1;
     const newPet: Pet = {
       ...pet,
-      id,
+      id: Math.max(id, 1),
     };
 
     pets.push(newPet);
