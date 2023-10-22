@@ -6,11 +6,3 @@ class HelloWorld {
 
 const greeter = new HelloWorld();
 greeter.sayHello();
-
-interface Animal {
-  name: string;
-}
-
-interface Social {
-  friends: string[];
-}
