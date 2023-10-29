@@ -1,11 +1,11 @@
 /**
  * Define a type for a pet and replace the umknowns in this file
- * npx ts-node getting-to-grips/pets-1.ts
+ * npx ts-node ./getting-to-grips/animals-1.ts
  */
 
-export type Pet = unknown;
+export type Animal = unknown;
 
-export const pets: unknown[] = [
+export const animals: unknown[] = [
   {
     name: "Spud",
     age: 8,
@@ -18,6 +18,8 @@ export const pets: unknown[] = [
   },
 ];
 
-pets.forEach((pet, i) => {
-  console.log(`Pet at ${i}: ${pet.name} - ${pet.age} yr old ${pet.species}`);
+animals.forEach((animal, i) => {
+  console.log(
+    `Animal at ${i}: ${animal.name} - ${animal.age} yr old ${animal.species}`
+  );
 });
