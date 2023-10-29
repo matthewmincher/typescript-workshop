@@ -57,9 +57,7 @@ function VetDetails(props: { vet: Vet }) {
   return (
     <Card
       sx={{
-        px: 2,
-        pt: 2,
-        pb: 2,
+        p: 2,
         mb: 2,
       }}
     >
