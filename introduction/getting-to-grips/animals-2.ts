@@ -1,7 +1,7 @@
 /**
  * #1 - Replace the uknown types with type declarations so that Typescript can compile
  * #2 - Replace the "in" check with a type guard (https://www.typescriptlang.org/docs/handbook/2/narrowing.html#using-type-predicates)
- * npx ts-node ./src/getting-to-grips/animals-2.ts
+ * npx ts-node ./getting-to-grips/animals-2.ts
  */
 
 interface WildAnimal {
