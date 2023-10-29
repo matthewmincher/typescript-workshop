@@ -45,7 +45,13 @@ function PetAppointments(props: { pet: Pet }) {
           const vet = vets.find((vet) => vet.id === appointment.vetId);
           if (!vet) return null;
 
-          return <VetAppointment appointment={appointment} vet={vet} />;
+          return (
+            <VetAppointment
+              key={appointment.id}
+              appointment={appointment}
+              vet={vet}
+            />
+          );
         })}
       </Stack>
     </div>
