@@ -1,6 +1,6 @@
 /**
  * Define a type for a pet and replace the umknowns in this file
- * npx ts-node getting-to-grips/users-1.ts
+ * npx ts-node getting-to-grips/pets-1.ts
  */
 
 export type Pet = unknown;
