@@ -1,7 +1,5 @@
 import { Appointment, Vet } from "../types/vets";
-import { parse, getUnixTime } from "date-fns";
-
-const date = Date.now();
+import { parseISO, getUnixTime } from "date-fns";
 
 export let vets: Vet[] = [
   {
@@ -34,7 +32,14 @@ export let appointments: Appointment[] = [
     id: 1,
     vetId: 1,
     petId: 1,
-    date: getUnixTime(parse("2023-10-10", "y-MM-dd", date)),
+    date: getUnixTime(parseISO("2023-10-10T10:00:00Z")),
     reason: "Vaccinations & annual health check",
+  },
+  {
+    id: 2,
+    vetId: 2,
+    petId: 1,
+    date: getUnixTime(parseISO("2023-11-20T16:30:00Z")),
+    reason: "Weight check in",
   },
 ];

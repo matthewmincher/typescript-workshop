@@ -1,13 +1,6 @@
 import "./App.css";
 import PetsApi from "./client/pets-api";
-import {
-  Box,
-  Container,
-  CssBaseline,
-  Divider,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Box, CssBaseline, Grid, Typography } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 import PetList from "./components/PetList";
@@ -18,6 +11,9 @@ import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import en from "date-fns/locale/en-GB";
 import { Pet } from "./api/types/pets";
 import PetActions from "./components/PetActions";
+import { VetsProvider } from "./context/VetsContext";
+import { Vet } from "./api/types/vets";
+import VetsApi from "./client/vets-api";
 
 const theme = createTheme({
   palette: {
@@ -33,11 +29,18 @@ const theme = createTheme({
 });
 
 const petsApi = new PetsApi();
+const vetsApi = new VetsApi();
 
 function App() {
   const [pets, setPets] = useState<Pet[]>([]);
   const [selectedPetId, setSelectedPetId] = useState<number>(0);
+  const [vets, setVets] = useState<Vet[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const selectedPet = pets.find((pet) => pet.id === selectedPetId);
+
+  useEffect(() => {
+    vetsApi.getAllVets().then(setVets);
+  }, []);
 
   const triggerUpdateAllPetData = useCallback(() => {
     setIsLoading(true);
@@ -74,8 +77,6 @@ function App() {
 
   useEffect(triggerUpdateAllPetData, [triggerUpdateAllPetData]);
 
-  const selectedPet = pets.find((pet) => pet.id === selectedPetId);
-
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={en}>
       <ThemeProvider theme={theme}>
@@ -106,10 +107,10 @@ function App() {
             </Grid>
             <Grid item xs={8}>
               {selectedPet ? (
-                <div>
+                <VetsProvider value={vets}>
                   <PetDetails pet={selectedPet} onPetUpdated={onPetUpdated} />
                   <PetActions pet={selectedPet} onPetRemoved={onPetRemoved} />
-                </div>
+                </VetsProvider>
               ) : (
                 <Typography>Select a pet...</Typography>
               )}
