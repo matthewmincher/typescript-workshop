@@ -27,25 +27,26 @@ function VetDetails(props: { vet: Vet }) {
     currentPage: 0,
   });
 
-  const handleChangePage = function (page: number) {
-    loadAppointments(page);
-  };
-
   const loadAppointments = useCallback(
     function (page: number) {
-      vetsApi
-        .getAllAppointments(props.vet.id, (page - 1) * PER_PAGE, PER_PAGE)
-        .then((result) => {
-          setAppointments(result.payload);
-          setPaging({
-            currentPage: page,
-            maxPage: Math.ceil(result.pagination.totalCount / PER_PAGE),
-          });
-        });
+      const vetId = props.vet.id,
+        offset = (page - 1) * PER_PAGE,
+        limit = PER_PAGE;
+
+      /**
+       * 1.
+       * Make a call to getAllAppointments, then do the following with the response:
+       *  call setAppointments with the data
+       *  call setPaging with the currentPage and maxPage
+       *    (maxPage is: the total count divided by PER_PAGE, rounded up)
+       */
     },
     [props.vet.id]
   );
 
+  const handleChangePage = function (page: number) {
+    loadAppointments(page);
+  };
   useEffect(() => {
     loadAppointments(1);
   }, [loadAppointments]);

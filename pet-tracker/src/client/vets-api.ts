@@ -4,7 +4,7 @@ import { Appointment, Vet } from "../api/types/vets";
  * 1.
  * Add a generic result type that has a payload field such that the following JSON can be represented:
  * {
- *    payload: {...}
+ *    payload: array of vets
  * }
  * Add this type to the getAllVets query to match a payload that is an array of Vet objects.
  */
@@ -13,7 +13,7 @@ import { Appointment, Vet } from "../api/types/vets";
  * 2.
  * Add a generic PagedResult type that extends the first result that includes pagination information:
  * {
- *    payload: {...},
+ *    payload: array of appointments,
  *    pagination: {
  *      totalCount: 20
  *    }
