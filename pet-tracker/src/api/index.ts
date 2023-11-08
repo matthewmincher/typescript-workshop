@@ -4,6 +4,7 @@ import PetService from "./services/pet-service";
 import cors from "cors";
 import parse from "date-fns/parse";
 import VetService from "./services/vet-service";
+import { LightModeTwoTone } from "@mui/icons-material";
 
 const PORT = 7000;
 const app = express();
@@ -142,26 +143,45 @@ petsRouter.get("/:id/appointments", async (req: Request, res: Response) => {
 vetsRouter.get("/", async (req: Request, res: Response) => {
   const allVets = await vetsService.all();
 
-  return res.status(HttpStatus.OK).send(allVets);
+  return res.status(HttpStatus.OK).send({
+    payload: allVets,
+  });
 });
 
 /**
  * curl -w "\n" 'http://localhost:7000/api/vets/1/appointments'
  */
-vetsRouter.get("/:id/appointments", async (req: Request, res: Response) => {
-  try {
-    const vetId = parseInt(req.params.id);
-    const appointments = await vetsService.appointments(vetId);
-    return res.status(HttpStatus.OK).send(appointments);
-  } catch (e) {
-    let message = "Unknown Error";
-    if (e instanceof Error) {
-      message = e.message;
-    }
+vetsRouter.get(
+  "/:id/appointments",
+  async (
+    req: Request<{ id: string }, any, any, { offset: string; limit: string }>,
+    res: Response
+  ) => {
+    try {
+      const vetId = parseInt(req.params.id),
+        offset = parseInt(req.query.offset),
+        limit = parseInt(req.query.limit);
 
-    return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(message);
+      const start = offset;
+      const end = start + limit;
+
+      const appointments = await vetsService.appointments(vetId);
+      return res.status(HttpStatus.OK).send({
+        payload: appointments.slice(start, end),
+        pagination: {
+          totalCount: appointments.length,
+        },
+      });
+    } catch (e) {
+      let message = "Unknown Error";
+      if (e instanceof Error) {
+        message = e.message;
+      }
+
+      return res.status(HttpStatus.INTERNAL_SERVER_ERROR).send(message);
+    }
   }
-});
+);
 
 /**
  * curl -w "\n"  -XPOST -H "Content-type: application/json" -d '{"date": "2023-10-21", "reason": "Pick up health plan", "petId": 1}' 'http://localhost:7000/api/vets/1/appointments'
@@ -176,7 +196,9 @@ vetsRouter.post("/:id/appointments", async (req: Request, res: Response) => {
       req.body.reason
     );
 
-    return res.status(HttpStatus.CREATED).send(appointment);
+    return res.status(HttpStatus.CREATED).send({
+      payload: appointment,
+    });
   } catch (e) {
     let message = "Unknown Error";
 

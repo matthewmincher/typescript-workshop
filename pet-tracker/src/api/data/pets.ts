@@ -28,6 +28,11 @@ let pets: Pet[] = [
       ],
     },
   },
+  {
+    id: 2,
+    name: "Fred",
+    species: Species.Tortoise,
+  },
 ];
 
 export default pets;

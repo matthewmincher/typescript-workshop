@@ -1,5 +1,6 @@
 import format from "date-fns/format";
 import { Pet } from "../api/types/pets";
+import { Appointment } from "../api/types/vets";
 
 export default class PetsApi {
   async getAllPets(): Promise<any[]> {
@@ -50,5 +51,11 @@ export default class PetsApi {
     return fetch(`http://localhost:7000/api/pets/${id}`, {
       method: "DELETE",
     });
+  }
+
+  async getAppointments(petId: number): Promise<Appointment[]> {
+    return fetch(`http://localhost:7000/api/pets/${petId}/appointments`).then(
+      (response) => response.json()
+    );
   }
 }
