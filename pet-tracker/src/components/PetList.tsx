@@ -49,7 +49,7 @@ function PetList(props: {
             onClick={() => props.onSelectPet(pet)}
           >
             <ListItemButton selected={pet.id === props.selectedPetId}>
-              <ListItemText primary={pet.name} />
+              <ListItemText primary={pet.name} data-testid="petName" />
             </ListItemButton>
           </ListItem>
         ))}

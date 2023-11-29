@@ -25,7 +25,8 @@
   "scripts": {
     "backend": "ts-node-dev --respawn --pretty --transpile-only src/api/index.ts",
     "frontend": "react-scripts start",
-    "frontend-tests": "react-scripts test"
+    "test:frontend": "react-scripts test --testPathPattern=tests/frontend",
+    "test:api": "jest --testPathPattern=tests/backend --coverage --collectCoverageFrom=src/api"
   },
   "eslintConfig": {
     "extends": [
