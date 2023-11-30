@@ -125,7 +125,7 @@ describe('PetRepository', () => {
         }
         pets.push(daveTheDog)
 
-        const actual =  await petRepository.delete(5)
+        const actual = await petRepository.delete(5)
 
         expect(actual).toBeFalsy()
     });
