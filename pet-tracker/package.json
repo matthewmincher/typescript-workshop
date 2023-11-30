@@ -26,7 +26,10 @@
     "backend": "ts-node-dev --respawn --pretty --transpile-only src/api/index.ts",
     "frontend": "react-scripts start",
     "test:frontend": "react-scripts test --testPathPattern=tests/frontend",
-    "test:api": "jest --testPathPattern=tests/backend --coverage --collectCoverageFrom=src/api"
+    "test:api": "react-scripts test --testPathPattern=tests/backend --coverage --collectCoverageFrom=src/api",
+    "workshop:1": "react-scripts test --coverage --collectCoverageFrom=src/api/repositories/pet-repository.ts tests/backend/repositories/pet-repository.test.ts",
+    "workshop:2": "react-scripts test --coverage --collectCoverageFrom=src/api/services/pet-service.ts tests/backend/services/pet-service.test.ts",
+    "workshop:3": "react-scripts test --testPathPattern=tests/frontend"
   },
   "eslintConfig": {
     "extends": [
