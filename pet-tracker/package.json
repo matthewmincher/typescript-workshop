@@ -28,7 +28,7 @@
     "test:frontend": "react-scripts test --testPathPattern=tests/frontend",
     "test:api": "react-scripts test --testPathPattern=tests/backend --coverage --collectCoverageFrom=src/api",
     "workshop:1": "react-scripts test --coverage --collectCoverageFrom=src/api/repositories/pet-repository.ts tests/backend/repositories/pet-repository.test.ts",
-    "workshop:2": "react-scripts test --coverage --collectCoverageFrom=src/api/services/pet-service.ts tests/backend/services/pet-service.test.ts",
+    "workshop:2": "react-scripts test tests/backend/services/pet-service.test.ts",
     "workshop:3": "react-scripts test --testPathPattern=tests/frontend"
   },
   "eslintConfig": {

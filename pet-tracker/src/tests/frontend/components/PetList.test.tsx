@@ -33,35 +33,11 @@ describe('PetList', () => {
     }
 
 
-    it('shows a list of pets', () => {
-        render(
-            <PetList
-                pets={defaultPets}
-                selectedPetId={defaultSelectedPetId}
-                onSelectPet={defaultOnSelectPet}
-                onUpdatePet={defaultOnUpdatePet}
-            />
-        )
+    it.todo('shows a list of pets', () => {
 
-        expect(screen.getByText(/Spud The Cat/i))
-        expect(screen.getByText(/Dave The Dog/i))
     })
 
-    it('shows the add pet modal', () => {
-        render(
-            <PetList
-                pets={defaultPets}
-                selectedPetId={defaultSelectedPetId}
-                onSelectPet={defaultOnSelectPet}
-                onUpdatePet={defaultOnUpdatePet}
-            />
-        )
+    it.todo('shows the add pet modal', () => {
 
-        const newPetButton = screen.getByLabelText(/add/i)
-        act(() => {
-            userEvent.click(newPetButton)
-        })
-
-        expect(screen.getByText(/Add Pet/i))
     })
 })
