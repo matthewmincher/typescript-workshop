@@ -33,10 +33,19 @@ describe('PetList', () => {
     }
 
 
+    /**
+     * Render the PetList component, passing in the defaultPets array
+     * Assert that both pets are present in the component
+     */
     it.todo('shows a list of pets', () => {
 
     })
 
+    /**
+     * Render the PetList component, passing in the defaultPets array
+     * Click the 'Add Pets' button
+     * Assert that the modal is shown
+     */
     it.todo('shows the add pet modal', () => {
 
     })
