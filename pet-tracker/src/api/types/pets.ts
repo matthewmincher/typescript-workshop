@@ -18,7 +18,3 @@ export interface Pet {
 
   weight?: Weight;
 }
-
-export interface UpdatedPet extends Pet {
-  updatedAt: string
-}
