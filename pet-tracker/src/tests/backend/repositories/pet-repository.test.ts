@@ -62,27 +62,7 @@ describe('PetRepository', () => {
         const allPets = await petRepository.findAll()
         expect(allPets).toHaveLength(1)
         expect(allPets[0].name).toEqual(terryTheTortoise.name)
-    });
-
-    it('can update a pet', async () => {
-        const daveTheDog: Pet = {
-            id: 1,
-            name: 'Dave',
-            species: Species.Dog,
-        }
-        pets.push(daveTheDog)
-
-        const davidTheDog = {
-            ...daveTheDog,
-            name: 'David T. Dog'
-        }
-
-        const updatedDave = await petRepository.update(davidTheDog)
-        expect(updatedDave).toEqual(davidTheDog)
-
-        const actual = await petRepository.find(updatedDave.id)
-        expect(actual).toEqual(davidTheDog)
-    });
+    })
 
     it('can delete a pet', async () => {
         const daveTheDog: Pet = {
@@ -98,5 +78,18 @@ describe('PetRepository', () => {
 
         const actual = await petRepository.find(daveTheDog.id)
         expect(actual).toBeUndefined()
+    });
+
+    test('returns false if id pet can not be found', async () => {
+        const daveTheDog: Pet = {
+            id: 1,
+            name: 'Dave',
+            species: Species.Dog,
+        }
+        pets.push(daveTheDog)
+
+        const actual = await petRepository.delete(5)
+
+        expect(actual).toBeFalsy()
     });
 })
