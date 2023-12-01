@@ -37,8 +37,11 @@ describe('PetList', () => {
      * Render the PetList component, passing in the defaultPets array
      * Assert that both pets are present in the component
      */
-    it.todo('shows a list of pets', () => {
+    it('shows a list of pets', () => {
+        render(<PetList pets={defaultPets} selectedPetId={defaultSelectedPetId} onSelectPet={defaultOnSelectPet} onUpdatePet={defaultOnUpdatePet} />)
 
+        expect(screen.findByText(/Spud The Cat/i))
+        expect(screen.findByText(/Dave The Dog/i))
     })
 
     /**
@@ -46,7 +49,15 @@ describe('PetList', () => {
      * Click the 'Add Pets' button
      * Assert that the modal is shown
      */
-    it.todo('shows the add pet modal', () => {
+    it('shows the add pet modal',  () => {
+        render(<PetList pets={defaultPets} selectedPetId={defaultSelectedPetId} onSelectPet={defaultOnSelectPet} onUpdatePet={defaultOnUpdatePet} />)
 
+        const button = screen.getByLabelText(/add/i)
+
+        act(() => {
+            userEvent.click(button)
+        })
+
+        expect(screen.findByText(/Add Pet/i))
     })
 })
