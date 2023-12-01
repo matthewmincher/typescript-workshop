@@ -21,8 +21,17 @@ import { Appointment, Vet } from "../api/types/vets";
  * Add this type to the getAllAppointments query to match a payload that is an array of Appointment objects
  */
 
+interface Result<T> {
+  payload: T;
+}
+
+interface PagedResult<T> extends Result<T> {
+  pagination: {
+    totalCount: number;
+  };
+}
 export default class VetsApi {
-  async getAllVets(): Promise<any> {
+  async getAllVets(): Promise<Result<Vet[]>> {
     return fetch("http://localhost:7000/api/vets").then((response) =>
       response.json()
     );
@@ -32,7 +41,7 @@ export default class VetsApi {
     vetId: number,
     offset: number,
     limit: number
-  ): Promise<any> {
+  ): Promise<PagedResult<Appointment[]>> {
     return fetch(
       `http://localhost:7000/api/vets/${vetId}/appointments?offset=${offset}&limit=${limit}`
     ).then((response) => response.json());

@@ -33,13 +33,13 @@ function VetDetails(props: { vet: Vet }) {
         offset = (page - 1) * PER_PAGE,
         limit = PER_PAGE;
 
-      /**
-       * 1.
-       * Make a call to getAllAppointments, then do the following with the response:
-       *  call setAppointments with the data
-       *  call setPaging with the currentPage and maxPage
-       *    (maxPage is: the total count divided by PER_PAGE, rounded up)
-       */
+      vetsApi.getAllAppointments(vetId, offset, limit).then((response) => {
+        setAppointments(response.payload);
+        setPaging({
+          currentPage: page,
+          maxPage: Math.ceil(response.pagination.totalCount / PER_PAGE),
+        });
+      });
     },
     [props.vet.id]
   );
