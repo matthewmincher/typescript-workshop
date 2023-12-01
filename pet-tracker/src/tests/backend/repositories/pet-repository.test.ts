@@ -92,4 +92,39 @@ describe('PetRepository', () => {
 
         expect(actual).toBeFalsy()
     });
+
+    it('can update a pet', async () => {
+        const daveTheDog: Pet = {
+            id: 1,
+            name: 'Dave',
+            species: Species.Dog,
+        }
+        pets.push(daveTheDog)
+
+        const updatedDog = {
+            ...daveTheDog,
+            name: 'David the Dog'
+        }
+
+        const actual = await petRepository.update(updatedDog)
+
+        expect(actual.name).toEqual(updatedDog.name)
+    })
+
+    it('throws an error if pet not found', async () => {
+        const daveTheDog: Pet = {
+            id: 1,
+            name: 'Dave',
+            species: Species.Dog,
+        }
+        pets.push(daveTheDog)
+
+        const updatedDog = {
+            id: 5,
+            name: 'Dave',
+            species: Species.Dog,
+        }
+
+        await expect(petRepository.update(updatedDog)).rejects.toThrow()
+    })
 })
